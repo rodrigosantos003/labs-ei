@@ -1,0 +1,51 @@
+--BEGIN TRANSACTION
+--UPDATE dbo.Customer
+--SET EmailAddress = 'new@estsetubal.ips.pt.pt'
+--WHERE CustomerId = 5
+
+--ROLLBACK
+
+--SET TRANSACTION ISOLATION LEVEL READ COMMITTED
+--SET NOCOUNT ON
+--GO
+--BEGIN TRAN
+--SELECT EmailAddress
+--FROM dbo.Customer
+--WHERE CustomerId = 5
+
+--WAITFOR DELAY '00:00:10'
+
+--SELECT EmailAddress
+--FROM dbo.Customer
+--WHERE CustomerId = 5
+--COMMIT TRAN
+
+--SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
+--SET NOCOUNT ON
+--GO
+--BEGIN TRAN
+--SELECT EmailAddress
+--FROM dbo.Customer
+--WHERE CustomerId = 5
+
+--WAITFOR DELAY '00:00:10'
+
+--SELECT EmailAddress
+--FROM dbo.Customer
+--WHERE CustomerId = 5
+--COMMIT TRAN
+
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+SET NOCOUNT ON
+GO
+BEGIN TRAN
+SELECT EmailAddress
+FROM dbo.Customer
+WHERE CustomerId = 5
+
+WAITFOR DELAY '00:00:10'
+
+SELECT EmailAddress
+FROM dbo.Customer
+WHERE CustomerId = 5
+COMMIT TRAN

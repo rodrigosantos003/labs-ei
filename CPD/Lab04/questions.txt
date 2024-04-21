@@ -1,0 +1,9 @@
+a) O trabalho é dividido entre as threads, aumentando o desempenho
+
+b) Uma thread é uma unidade básica de execução de um programa.
+Uma pool de threads é uma coleção de threads pré-criadas e mantidas em espera para executar tarefas
+
+c) ThreadPoolExecutor é mais flexível e extensível.
+Ele permite uma configuração mais detalhada do pool de threads e da execução de tarefas.
+ThreadPool
+Não fornece muitas opções para configurar o pool de threads ou controlar a execução de tarefas. É uma implementação básica de um pool de threads.
