@@ -1,0 +1,146 @@
+\hypertarget{md_README_autotoc_md1}{}\doxysection{Lab 1 $\vert$ Exercícios + Template}\label{md_README_autotoc_md1}
+\+:gb\+: \mbox{\hyperlink{md_README_en}{English version}}
+
+Este repositório foi criado a partir de\+:
+
+
+\begin{DoxyItemize}
+\item \href{https://github.com/estsetubal-atad/CProgram_Template}{\texttt{ https\+://github.\+com/estsetubal-\/atad/\+CProgram\+\_\+\+Template}}
+\end{DoxyItemize}
+
+Consulte o README se tiver dúvidas sobre a sua utilização.
+
+\DoxyHorRuler{0}
+
+
+{\bfseries{Objetivos}}\+:
+
+
+\begin{DoxyItemize}
+\item Utilização de modularidade;
+\item Manipulação de arrays / strings;
+\item Documentação Doxygen.
+\end{DoxyItemize}
+
+{\bfseries{Referências}}\+:
+
+
+\begin{DoxyItemize}
+\item Organização ATAD, documentação do software utilizado\+: \href{https://github.com/estsetubal-atad/Docs}{\texttt{ https\+://github.\+com/estsetubal-\/atad/\+Docs}}
+\item $\ast$\char`\"{}\+Linguagem C\char`\"{}$\ast$, {\itshape e-\/book} disponível no Moodle.
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+
+
+\+:computer\+: Faça o clone {\bfseries{deste}} repositório antes de avançar.\hypertarget{md_README_autotoc_md4}{}\doxysubsection{Nível 1 (\+Duração estimada\+: $<$ 10min)}\label{md_README_autotoc_md4}
+
+\begin{DoxyEnumerate}
+\item Crie um módulo \char`\"{}arrays\char`\"{} e adicione-\/lhe a função {\ttfamily array\+Print}, que imprime na consola um array no formato {\ttfamily \mbox{[}a, b, c, d, $<$...$>$\mbox{]}}\+:
+\end{DoxyEnumerate}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void} printArray(\textcolor{keywordtype}{int} arr[], \textcolor{keywordtype}{int} arrLength) \{}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"{}[ "{}});}
+\DoxyCodeLine{    \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i=0; i<arrLength; i++) \{}
+\DoxyCodeLine{        printf(\textcolor{stringliteral}{"{}\%d\%s"{}}, arr[i], (i < arrLength -\/ 1 ? \textcolor{stringliteral}{"{}, "{}} : \textcolor{stringliteral}{"{}"{}}));}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    printf(\textcolor{stringliteral}{"{}]\(\backslash\)n"{}});}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyEnumerate}
+\item Exemplifique a utilização desta função no {\ttfamily main}, criando e inicializando um array de inteiros {\ttfamily v} com 5 elementos (2, 3, 6, 4, 7); edite o {\itshape makefile}, compile e execute o programa.
+\end{DoxyEnumerate}\hypertarget{md_README_autotoc_md5}{}\doxysubsection{Nível 2 (\+Duração estimada\+: $\sim$ 25min)}\label{md_README_autotoc_md5}
+\+:exclamation\+: Sempre que possível, as implementações devem evitar duplicação de código através das outras funções que calculem passsos necessários.
+
+
+\begin{DoxyEnumerate}
+\item Adicione as seguintes funções adicionais para o módulo \char`\"{}arrays\char`\"{}\+:
+\begin{DoxyItemize}
+\item {\ttfamily int sum(int arr\mbox{[}$\,$\mbox{]}, int arr\+Length)} – devolve a soma dos elementos de {\ttfamily arr};
+\item {\ttfamily double mean(int arr\mbox{[}$\,$\mbox{]}, int arr\+Length)} – devolve a média dos elementos de {\ttfamily arr};
+\item {\ttfamily double variance(int arr\mbox{[}$\,$\mbox{]}, int arr\+Length)} – devolve a variância (de população) de {\ttfamily arr} -\/ utilizando a seguinte fórmula\+:
+\end{DoxyItemize}
+
+
+
+onde,{\ttfamily x\+\_\+i} representa cada elemento do array, {\ttfamily \textbackslash{}bar(x)} a média de todos os elementos e {\ttfamily n} a quantidade de elementos.
+\begin{DoxyItemize}
+\item {\ttfamily double standard\+Deviation(int arr\mbox{[}$\,$\mbox{]}, int arr\+Length)} – devolve o desvio padrão dos elementos de arr. \+:bulb\+: O desvio padrão consiste na raiz quadrada da variância.
+\end{DoxyItemize}
+\item Teste o resultado destas funções sobre o array instanciado no {\ttfamily main}.
+
+O {\itshape output} requerido e resultados esperados são\+:
+
+\`{}\`{}\`{}markdown Array\+: \mbox{[}2, 3, 6, 4, 7\mbox{]} Sum = 22 Mean = 4.\+40 Variance = 4.\+30 Standard deviation = 2.\+07 \`{}\`{}\`{}
+
+\+:exclamation\+: Apresente valores reais com duas casas decimais.
+\end{DoxyEnumerate}
+
+\+:question\+: Qual a complexidade algorítmica da função {\ttfamily variance} que implementou?\hypertarget{md_README_autotoc_md6}{}\doxysubsection{Nível 3 (\+Duração estimada\+: $\sim$ 25min)}\label{md_README_autotoc_md6}
+\+:exclamation\+: As seguintes funções devem pertencer a um novo módulo \char`\"{}strings\char`\"{}.
+
+\+:thinking\+: o modificador {\ttfamily const}, e.\+g., {\ttfamily const char\mbox{[}\mbox{]}}, é uma \char`\"{}promessa\char`\"{} de que a {\itshape string} não será alterada dentro da função.
+
+
+\begin{DoxyEnumerate}
+\item Crie a função {\ttfamily bool equal(const char str1\mbox{[}$\,$\mbox{]}, const char str2\mbox{[}$\,$\mbox{]})} que verifica se duas strings passadas como argumento são iguais ({\itshape case-\/insensitive}).
+\begin{DoxyItemize}
+\item \+:bulb\+: Se as duas {\itshape strings} tiverem tamanhos diferentes garantidamente não são iguais, caso contrário, utilize a função {\ttfamily tolower(char)/toupper(char)}da biblioteca {\ttfamily $<$ctype.\+h$>$} para comparar caracteres na mesma capitalização.
+\end{DoxyItemize}
+\item Crie a função {\ttfamily bool is\+Palindrome(const char str\mbox{[}$\,$\mbox{]})} que verifica se a string é um palíndromo (palavra ou frase que tem a mesma sequência de letras em qualquer ordem de leitura).
+\begin{DoxyItemize}
+\item e.\+g., \char`\"{}ovo\char`\"{}, \char`\"{}ana\char`\"{}, \char`\"{}sopapos\char`\"{} e \char`\"{}\+Sator arepo tenet opera rotas\char`\"{}.
+\item Implemente uma versão que acuse, e.\+g., \char`\"{}\+Ana\char`\"{} e \char`\"{}a\+NA\char`\"{} como palíndromos.
+\end{DoxyItemize}
+\item Crie a função {\ttfamily bool has\+Duplicates(const char str\mbox{[}$\,$\mbox{]})} que verifica se existe algum caracter duplicado em {\ttfamily str}.
+\item Teste as funções no {\ttfamily main}, solicitando todas as {\itshape strings} necessárias ao utilizador.
+\end{DoxyEnumerate}\hypertarget{md_README_autotoc_md7}{}\doxysubsection{Nível 4 (\+Duração estimada\+: $\sim$ 20min)}\label{md_README_autotoc_md7}
+
+\begin{DoxyEnumerate}
+\item Implemente no módulo \char`\"{}strings\char`\"{} a função {\ttfamily void letter\+Frequency(cons char str\mbox{[}$\,$\mbox{]})} que imprime na consola a frequência de ocorrência de cada letra do alfabeto na {\itshape string} {\ttfamily str} (em forma tabular) -\/ deve funcionar de forma {\itshape case-\/insensitive} e todos os caracteres que não forem letras devem ser ignorados.
+\begin{DoxyItemize}
+\item Teste a função no {\ttfamily main}, solicitando a {\itshape string} ao utilizador.
+\end{DoxyItemize}
+\end{DoxyEnumerate}
+
+\begin{DoxyVerb}:mag: Exemplo:
+
+```markdown
+Introduza string: abracadabra
+Letra   | Freq.
+a   | 5
+b   | 2
+c   | 1
+d   | 1
+...
+r   | 2
+...     
+z   | 0
+```
+\end{DoxyVerb}
+ \+:question\+: Qual a complexidade algorítmica da função {\ttfamily letter\+Frequency} que implementou?\hypertarget{md_README_autotoc_md8}{}\doxysubsection{Nível 5 (\+Duração estimada\+: $<$ 15min)}\label{md_README_autotoc_md8}
+
+\begin{DoxyEnumerate}
+\item Forneça a documentação {\itshape doxygen} de todas as funções do módulo \char`\"{}arrays\char`\"{}. \+:bulb\+: a documentação deve ser adicionada no ficheiro {\ttfamily \mbox{\hyperlink{arrays_8h_source}{arrays.\+h}}}.
+\begin{DoxyItemize}
+\item Verifique que, após o efetuar, consegue visualizá-\/la durante a edição do ficheiro {\ttfamily main.\+c}, e.\+g., quando passa o cursor por cima da invocação de uma função documentada.
+\item Gere a documentação {\itshape doxygen} -\/ deverá obter a pasta {\ttfamily html}. Abra o ficheiro {\ttfamily index.\+html} e verifique a documentação gerada.
+\end{DoxyItemize}
+\end{DoxyEnumerate}
+
+\DoxyHorRuler{0}
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{@bruno.silva}
+\DoxyCodeLine{(EOF)}
+
+\end{DoxyCode}
+ 

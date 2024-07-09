@@ -1,0 +1,138 @@
+\hypertarget{md_README_en_autotoc_md11}{}\doxysection{Lab 1 \textbackslash{}$\vert$ Exercises + Template}\label{md_README_en_autotoc_md11}
+🇬🇧 \mbox{\hyperlink{md_README_en}{English version}}
+
+This repository was created from\+:
+
+
+\begin{DoxyItemize}
+\item \href{https://github.com/estsetubal-atad/CProgram_Template}{\texttt{ https\+://github.\+com/estsetubal-\/atad/\+CProgram\+\_\+\+Template}}
+\end{DoxyItemize}
+
+Consult the README if you have questions about its use.
+
+\DoxyHorRuler{0}
+
+
+Goals\+:
+
+
+\begin{DoxyItemize}
+\item Use of modularity;
+\item Manipulation of arrays / strings;
+\item Doxygen Documentation.
+\end{DoxyItemize}
+
+References\+:
+
+
+\begin{DoxyItemize}
+\item ATAD organization, documentation of the software used\+: \href{https://github.com/estsetubal-atad/Docs}{\texttt{ https\+://github.\+com/estsetubal-\/atad/\+Docs}}
+\item \char`\"{}\+Linguagem C\char`\"{}, e-\/book available on Moodle.
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+
+
+💻 Clone this repository before moving forward.\hypertarget{md_README_en_autotoc_md14}{}\doxysubsection{Level 1 (\+Estimated duration\+: $<$ 10min)}\label{md_README_en_autotoc_md14}
+
+\begin{DoxyEnumerate}
+\item Create an \char`\"{}arrays\char`\"{} module and add the {\ttfamily array\+Print} function to it, which prints an array in the {\ttfamily \mbox{[}a, b, c, d, $<$...$>$\mbox{]}} format to the console\+:
+\end{DoxyEnumerate}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{void printArray(int arr[], int arrLength) \{}
+\DoxyCodeLine{    printf("{}[ "{});}
+\DoxyCodeLine{    for(int i=0; i<arrLength; i++) \{}
+\DoxyCodeLine{        printf("{}\%d\%s"{}, arr[i], (i < arrLength -\/ 1 ? "{}, "{} : "{}"{}));}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    printf("{}]\(\backslash\)n"{});}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyEnumerate}
+\item Exemplify the use of this function in {\ttfamily main} , creating and initializing an array of integers {\ttfamily v} with 5 elements (2, 3, 6, 4, 7); edit the makefile, compile and run the program.
+\end{DoxyEnumerate}\hypertarget{md_README_en_autotoc_md15}{}\doxysubsection{Level 2 (\+Estimated duration\+: $\sim$25min)}\label{md_README_en_autotoc_md15}
+❗ Whenever possible, implementations should avoid code duplication across other functions that compute necessary steps.
+
+
+\begin{DoxyEnumerate}
+\item Add the following additional functions to the \char`\"{}arrays\char`\"{} module\+:
+\begin{DoxyItemize}
+\item {\ttfamily int sum(int arr\mbox{[}$\,$\mbox{]}, int arr\+Length)} – returns the sum of the elements of {\ttfamily arr} ;
+\item {\ttfamily double mean(int arr\mbox{[}$\,$\mbox{]}, int arr\+Length)} – returns the average of the elements of {\ttfamily arr} ;
+\item {\ttfamily double variance(int arr\mbox{[}$\,$\mbox{]}, int arr\+Length)} – returns the (population) variance of {\ttfamily arr} – using the following formula\+:
+
+
+\end{DoxyItemize}
+
+where, {\ttfamily x\+\_\+i} represents each array element, {\ttfamily \textbackslash{}bar(x)} the average of all elements and {\ttfamily n} the number of elements.
+\begin{DoxyItemize}
+\item {\ttfamily double standard\+Deviation(int arr\mbox{[}$\,$\mbox{]}, int arr\+Length)} – returns the standard deviation of arr elements. 💡 The standard deviation consists of the square root of the variance.
+\end{DoxyItemize}
+\item Test the result of these functions on the array instantiated in {\ttfamily main} .
+
+The required output and expected results are\+:
+
+\`{}\`{}\`{} markdown Array\+: \mbox{[}2, 3, 6, 4, 7\mbox{]} Sum = 22 Mean = 4.\+40 Variance = 4.\+30 Standard deviation = 2.\+07 \`{}\`{}\`{}
+
+❗ Display real values with two decimal places.
+\end{DoxyEnumerate}
+
+❓ What is the algorithmic complexity of the {\ttfamily variance} function you implemented?\hypertarget{md_README_en_autotoc_md16}{}\doxysubsection{Level 3 (\+Estimated duration\+: $\sim$25min)}\label{md_README_en_autotoc_md16}
+❗ The following functions must belong to a new \char`\"{}strings\char`\"{} module.
+
+🤔 the {\ttfamily const} modifier, eg, {\ttfamily const char\mbox{[}\mbox{]}} , is a \char`\"{}promise\char`\"{} that the string will not be changed within the function.
+
+
+\begin{DoxyEnumerate}
+\item Create function {\ttfamily bool equal(const char str1\mbox{[}$\,$\mbox{]}, const char str2\mbox{[}$\,$\mbox{]})} that checks if two strings passed as arguments are equal (case-\/insensitive).
+\begin{DoxyItemize}
+\item 💡 If the two strings have different lengths, they are guaranteed not to be the same, otherwise, use function {\ttfamily tolower(char)/toupper(char)} from library {\ttfamily $<$ctype.\+h$>$} to compare characters in the same capitalization.
+\end{DoxyItemize}
+\item Create function {\ttfamily bool is\+Palindrome(const char str\mbox{[}$\,$\mbox{]})} that checks if the string is a palindrome (word or phrase that has the same sequence of letters in any reading order).
+\begin{DoxyItemize}
+\item eg, \char`\"{}ovo\char`\"{}, \char`\"{}ana\char`\"{}, \char`\"{}sopapos\char`\"{} e \char`\"{}\+Sator arepo tenet opera rotas\char`\"{}.
+\item Implement a version that flags eg \char`\"{}\+Ana\char`\"{} and \char`\"{}a\+NA\char`\"{} as palindromes.
+\end{DoxyItemize}
+\item Create function {\ttfamily bool has\+Duplicates(const char str\mbox{[}$\,$\mbox{]})} that checks if there are any duplicate characters in {\ttfamily str} .
+\item Test the functions on {\ttfamily main} , prompting the user for all required strings.
+\end{DoxyEnumerate}\hypertarget{md_README_en_autotoc_md17}{}\doxysubsection{Level 4 (\+Estimated duration\+: $\sim$20min)}\label{md_README_en_autotoc_md17}
+
+\begin{DoxyEnumerate}
+\item Implement in the \char`\"{}strings\char`\"{} module the function {\ttfamily void letter\+Frequency(cons char str\mbox{[}$\,$\mbox{]})} that prints on the console the frequency of occurrence of each letter of the alphabet in the string {\ttfamily str} (in tabular form) -\/ it must work in a case-\/insensitive way and all characters that are not letters must be ignored.
+\begin{DoxyItemize}
+\item Test the function on {\ttfamily main} , prompting the user for the string.
+\end{DoxyItemize}
+
+🔍 Example\+:
+
+\`{}\`{}\`{} markdown Introduza string\+: abracadabra Letra $\vert$ Freq. a $\vert$ 5 b $\vert$ 2 c $\vert$ 1 d $\vert$ 1 ... r $\vert$ 2 ... ~\newline
+ z $\vert$ 0 \`{}\`{}\`{}
+\end{DoxyEnumerate}
+
+❓ What is the algorithmic complexity of the {\ttfamily letter\+Frequency} function you implemented?\hypertarget{md_README_en_autotoc_md18}{}\doxysubsection{Level 5 (\+Estimated duration\+: $<$ 15min)}\label{md_README_en_autotoc_md18}
+
+\begin{DoxyEnumerate}
+\item Provide doxygen documentation of all functions in the \char`\"{}arrays\char`\"{} module. 💡 documentation must be added in file {\ttfamily \mbox{\hyperlink{arrays_8h_source}{arrays.\+h}}} .
+\begin{DoxyItemize}
+\item Check that, after doing so, you can see it while editing the {\ttfamily main.\+c} file, eg, when passing the cursor over the invocation of a documented function.
+\item Generate the doxygen documentation -\/ you should get the {\ttfamily html} folder. Open the {\ttfamily index.\+html} file and check the generated documentation.
+\end{DoxyItemize}
+\end{DoxyEnumerate}
+
+\DoxyHorRuler{0}
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{@bruno.silva}
+\DoxyCodeLine{(EOF)}
+
+\end{DoxyCode}
+
+
+\mbox{[}Disclaimer\+: This document was automatically translated, some original formatting may have been lost.\mbox{]} 
