@@ -1,5 +1,0 @@
-# Ignore doxygen generated documentation
-html/
-
-# Ignore executable
-/prog
