@@ -26,50 +26,45 @@
 
 ;; factorial
 (defun factorial (n)
-  (if (= n 1)
-      1
-    (* n (factorial (- n 1)))
+  (cond ((= n 1) 1)
+        (t (* n (factorial (- n 1))))
   )
 )
 
 ;; n-esimo
 (defun n-esimo (n lst)
-  (if (> n 0)
-      (n-esimo (- n 1) (cdr lst))
-    (first lst)
+  (cond ((<= n 0) (first lst))
+        (t (n-esimo (- n 1) (cdr lst)))
   )
 )
 
 ;; soma-lista
 (defun soma-lista (lst)
-  (if (null lst)
-      0
-    (+ (first lst) (soma-lista (cdr lst)))
+  (cond ((null lst) 0)
+        (t (+ (first lst) (soma-lista (cdr lst))))
   )
 )
 
 ;; existe
 (defun existe (n lst)
-  (if (= n (first lst))
-      lst
-    (existe n (cdr lst))
+  (cond ((= n (first lst)) lst)
+        (t (existe n (cdr lst)))
   )
 )
 
 ;; junta
 (defun junta (lst1 lst2)
-  (if (null lst1)
-      lst2
-      (cons (car lst1) (junta (cdr lst1) lst2))
-   )
+  (cond ((null lst1) lst2)
+        (t (cons (car lst1) (junta (cdr lst1) lst2)))
+  )
 )
 
 
 ;; inverte
 (defun inverte (lst)
-  (if (null lst)
-      nil
-     (append (inverte (cdr lst)) (list (car lst))))
+  (cond ((null lst) NIL)
+        (t (append (inverte (cdr lst)) (list (car lst))))
+  )
 )
 
 ;; conta-atomos
