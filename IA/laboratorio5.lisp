@@ -61,9 +61,9 @@
 ;; 15
 (defun media-das-notas (notas)
   (let ((numero-de-notas (length notas)))
-    (if (> numero-de-notas 0)
-        (/ (apply #'+ notas) numero-de-notas)
-        0))
+  (cond ((> numero-de-notas 0) (/ (apply #' + notas) numero-de-notas))
+        (t 0)
+  ))
 )
 
 ;; media-da-turma
@@ -71,10 +71,11 @@
 ;; 11.666666
 (defun media-da-turma (media-funcao turma)
   (let ((numero-de-alunos (length turma)))
-    (if (> numero-de-alunos 0)
-        (let ((medias-dos-alunos (mapcar (lambda (aluno) (funcall media-funcao (third aluno))) turma)))
-          (funcall media-funcao medias-dos-alunos))
-        0))
+    (cond ((> numero-de-alunos 0)
+           (let ((medias-dos-alunos (mapcar (lambda (aluno) (funcall media-funcao (third aluno))) turma)))
+             (funcall media-funcao medias-dos-alunos)))
+          (t 0))
+   )
 )
 
 ;; percentagem-de-aprovados
@@ -85,9 +86,10 @@
          (aprovados (length (remover-se
                              (lambda (nota) (< nota 9.5))
                              (mapcar (lambda (aluno) (media-das-notas (third aluno))) turma)))))
-    (if (= total-alunos 0)
-        0
-        (/ (* aprovados 100.0) total-alunos))))
+    (cond ((= total-alunos 0) 0)
+          (t (/ (* aprovados 100.0) total-alunos))
+     ))
+)
 
 
 ;; lista-dos-aprovados
@@ -100,9 +102,9 @@
 ;; (todos-aprovadosp (turma-1))
 ;; NIL
 (defun todos-aprovadosp (turma)
-  (if (= (percentagem-aprovados turma) 100)
-      T
-    NIL)
+  (cond ((= (percentagem-aprovados turma) 100) t)
+        (t nil)
+  )
 )
 
 ;;avaliar-turma
