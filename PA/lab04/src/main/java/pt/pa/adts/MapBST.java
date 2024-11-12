@@ -135,10 +135,10 @@ public class MapBST<K extends Comparable<K>, V> implements Map<K,V> {
     private BSTNode searchNodeWithKey(K key, BSTNode treeRoot) {
         if(treeRoot == null) return null;
 
-        int comparision = key.compareTo(treeRoot.key);
+        int comparison = key.compareTo(treeRoot.key);
 
-        if(comparision == 0) return treeRoot;
-        else if(comparision < 0) return searchNodeWithKey(key, treeRoot.left);
+        if(comparison == 0) return treeRoot;
+        else if(comparison < 0) return searchNodeWithKey(key, treeRoot.left);
 
         return searchNodeWithKey(key, treeRoot.right);
     }

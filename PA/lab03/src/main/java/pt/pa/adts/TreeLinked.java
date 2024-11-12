@@ -1,5 +1,7 @@
 package pt.pa.adts;
 
+import javafx.geometry.Pos;
+
 import java.util.*;
 
 /**
@@ -29,16 +31,18 @@ public class TreeLinked<E> implements Tree<E> {
         }
     }
 
-    public int size(TreeNode treeNode) {
+    public int size(Position<E> position) {
+        TreeNode treeNode = checkPosition(position);
+
         if (treeNode.children.isEmpty()) {
             return 1;
-        } else {
-            int s = 1;
-            for (TreeNode child : treeNode.children) {
-                s += size(child);
-            }
-            return s;
         }
+
+        int s = 1;
+        for (TreeNode child : treeNode.children) {
+            s += size(child);
+        }
+        return s;
     }
 
     @Override
@@ -142,7 +146,7 @@ public class TreeLinked<E> implements Tree<E> {
     }
 
     /**
-     *   auxiliary method to check if Position is valid and cast to a treeNode
+     * auxiliary method to check if Position is valid and cast to a treeNode
      */
     private TreeNode checkPosition(Position<E> position)
             throws InvalidPositionException {
@@ -220,29 +224,31 @@ public class TreeLinked<E> implements Tree<E> {
 
     /**
      * Move (remove e insere) um nó da árvore e torna-o descendente de outro nó.
+     *
      * @param existingPosition Elemento a mover
-     * @param newParent Destino
+     * @param newParent        Destino
      */
     @Override
     public void move(Position<E> existingPosition, Position<E> newParent) {
         TreeNode oldParentNode = checkPosition(parent(existingPosition));
         TreeNode newParentNode = checkPosition(newParent);
+        TreeNode currentNode = checkPosition(existingPosition);
 
-        oldParentNode.children.remove(existingPosition);
+        oldParentNode.children.remove(currentNode);
 
-        newParentNode.children.add((TreeNode)existingPosition);
-        ((TreeNode) existingPosition).parent = newParentNode;
+        newParentNode.children.add(currentNode);
+        currentNode.parent = newParentNode;
     }
 
     @Override
     public boolean isAncestor(Position<E> posDesc, Position<E> posAsc) {
-        if (posDesc==null || posAsc==null) return false;
+        if (posDesc == null || posAsc == null) return false;
 
         TreeNode descendantNode = checkPosition(posDesc);  // possível descendente
         TreeNode ascendantNode = checkPosition(posAsc);   // possível ascendente
 
         if (isRoot(descendantNode)) return false;     // a raiz não tem ascendentes
-        if (descendantNode.parent==ascendantNode) return true;
+        if (descendantNode.parent == ascendantNode) return true;
         return isAncestor(descendantNode.parent, ascendantNode);
     }
 
@@ -250,11 +256,31 @@ public class TreeLinked<E> implements Tree<E> {
     public int degree(Position<E> position) throws InvalidPositionException {
         int deg = 0;
 
-        for(Position<E> child : children(position)){
-            deg +=  1;
+        for (Position<E> child : children(position)) {
+            deg += 1;
         }
 
         return deg;
+    }
+
+    public boolean exists(E element) {
+        if (isEmpty()) return false;
+
+        if (this.root.element.equals(element)) return true;
+
+        return exists(this.root, element);
+    }
+
+    private boolean exists(Position<E> pos, E element) {
+        boolean res = false;
+
+        for (Position<E> child : children(pos)) {
+            if (child.element().equals(element)) return true;
+
+            res = exists(child, element);
+        }
+
+        return res;
     }
 
     private String toStringPreOrder(Position<E> position) {
@@ -275,8 +301,8 @@ public class TreeLinked<E> implements Tree<E> {
     }
 
     /**
-     *  auxiliary method to write Tree, using preorder approach
-     *  */
+     * auxiliary method to write Tree, using preorder approach
+     */
     private String toStringPreOrderLevels(Position<E> position, int level) {
         StringBuilder sb = new StringBuilder(position.element().toString()); // visit (position)
 
@@ -290,7 +316,7 @@ public class TreeLinked<E> implements Tree<E> {
      * auxiliary method to format a level of the tree
      */
     private String printLevel(int level) {
-        return Collections.nCopies(level,"  ") + "-";
+        return Collections.nCopies(level, "  ") + "-";
     }
 
     /**
@@ -320,6 +346,5 @@ public class TreeLinked<E> implements Tree<E> {
             }
             return element;
         }
-
     }
 }

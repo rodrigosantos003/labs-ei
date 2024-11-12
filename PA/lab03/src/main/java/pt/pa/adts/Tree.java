@@ -165,5 +165,12 @@ public interface Tree<E> {
    * @throws InvalidPositionException if position is null or is not referring to a treeNode
    */
   int degree(Position<E> position) throws InvalidPositionException;
+
+  /**
+   * Verifica se exsite um elemento na árvore com o valor fornecido
+   * @param element Valor a verificar
+   * @return True se existir. False caso contrário
+   */
+  boolean exists(E element);
 }
 
