@@ -8,12 +8,15 @@ import java.util.*;
 
 public class Dijkstra {
     public static DijkstraResult calculateLowestCostPath(Vertex<Airport> source, Graph<Airport, Flight> graph){
-        DijkstraResult result = new DijkstraResult();
+        if (source == null) {
+            throw new IllegalArgumentException("Source vertex cannot be null.");
+        }
 
+        DijkstraResult result = new DijkstraResult();
         Set<Vertex<Airport>> unvisited = new HashSet<>();
 
         for(Vertex<Airport> vertex : graph.vertices()){
-            result.costsTable.put(vertex, Double.POSITIVE_INFINITY);
+            result.costsTable.put(vertex, Double.MAX_VALUE);
             result.predecessorsTable.put(vertex, null);
             unvisited.add(vertex);
         }
@@ -22,6 +25,8 @@ public class Dijkstra {
 
         while (!unvisited.isEmpty()){
             Vertex<Airport> v = findSmallestCostVertex(unvisited, result.costsTable);
+            if (v == null) break;
+
             unvisited.remove(v);
 
             for(Edge<Flight, Airport> edge: graph.incidentEdges(v)){
@@ -42,7 +47,7 @@ public class Dijkstra {
 
     public static void calculateLowestCostPathBetweenVertices(Vertex<Airport> source, Vertex<Airport> destination, Graph<Airport, Flight> graph){
         System.out.println("Custo: " + lowestCost(source, destination, graph));
-        System.out.println("Caminho: " + lowestCost(source, destination, graph));
+        System.out.println("Caminho: " + lowestCostPath(source, destination, graph));
     }
 
     private static double lowestCost(Vertex<Airport> source, Vertex<Airport> destination, Graph<Airport, Flight> graph){
@@ -53,16 +58,22 @@ public class Dijkstra {
         List<Vertex<Airport>> path = new ArrayList<>();
         Map<Vertex<Airport>, Vertex<Airport>> predecessors = calculateLowestCostPath(source, graph).predecessorsTable;
 
-        while (!path.contains(source)){
-            path.add(0, predecessors.get(path.get(0)));
+        Vertex<Airport> current = destination;
+        while (current != null && !current.equals(source)) {
+            path.add(0, current);
+            current = predecessors.get(current);
         }
+        if (current != null) {
+            path.add(0, source);
+        }
+
 
         return path;
     }
 
     private static Vertex<Airport> findSmallestCostVertex(Set<Vertex<Airport>> unvisited, Map<Vertex<Airport>, Double> costsTable){
         Vertex<Airport> smallestCostVertex = null;
-        double smallestCost = Double.POSITIVE_INFINITY;
+        double smallestCost = Double.MAX_VALUE;
 
         for(Vertex<Airport> v : costsTable.keySet()){
             if(unvisited.contains(v) && costsTable.get(v) < smallestCost){
@@ -74,7 +85,7 @@ public class Dijkstra {
         return smallestCostVertex;
     }
 
-    static class DijkstraResult{
+    private static class DijkstraResult{
         private Map<Vertex<Airport>, Double> costsTable;
         private Map<Vertex<Airport>, Vertex<Airport>> predecessorsTable;
 

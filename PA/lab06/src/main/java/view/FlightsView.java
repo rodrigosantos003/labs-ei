@@ -56,10 +56,6 @@ public class FlightsView extends BorderPane {
         this.graphView = new SmartGraphPanel<>(graph, strategy);
 
         doLayout();
-
-        List<Vertex<Airport>> vertices = (List<Vertex<Airport>>) graph.vertices();
-
-        Dijkstra.calculateLowestCostPathBetweenVertices(vertices.get(0), vertices.get(1), graph);
     }
 
     private void createInitialModel() {
@@ -75,21 +71,21 @@ public class FlightsView extends BorderPane {
         Vertex<Airport> mia = graph.insertVertex(new Airport("MIA"));
 
         graph.insertEdge(hnl, lax, new Flight("UN3563", 2555));   // F1
-        graph.insertEdge(hnl, lax, new Flight("DT1597", 2570));   // F2
+        //graph.insertEdge(hnl, lax, new Flight("DT1597", 2570));   // F2
         graph.insertEdge(lax, sfo, new Flight("UN9375", 337));   // F3
-        graph.insertEdge(lax, sfo, new Flight("AM4526", 500));   // F4
+        //graph.insertEdge(lax, sfo, new Flight("AM4526", 500));   // F4
         graph.insertEdge(lax, ord, new Flight("UN4836", 1743));  // F5
-        graph.insertEdge(lax, ord, new Flight("VA2001", 1540));  // F6
+        //graph.insertEdge(lax, ord, new Flight("VA2001", 1540));  // F6
         graph.insertEdge(sfo, ord, new Flight("UN1475", 1843));  // F7
-        graph.insertEdge(sfo, ord, new Flight("AL7854", 1943));  // F8
+        //graph.insertEdge(sfo, ord, new Flight("AL7854", 1943));  // F8
         graph.insertEdge(lax, dfw, new Flight("SP1020", 1233));  // F9
-        graph.insertEdge(lax, dfw, new Flight("AM4582", 1133));  // F10
+        //graph.insertEdge(lax, dfw, new Flight("AM4582", 1133));  // F10
         graph.insertEdge(ord, dfw, new Flight("UN4568", 802));   // F11
         graph.insertEdge(dfw, lga, new Flight("SP4512", 1387));  // F12
         graph.insertEdge(ord, pvd, new Flight("AM4520", 849));   // F13
-        graph.insertEdge(ord, pvd, new Flight("UN7812", 849));   // F14
+        //graph.insertEdge(ord, pvd, new Flight("UN7812", 849));   // F14
         graph.insertEdge(pvd, mia, new Flight("FT1000", 1205));  // F15
-        graph.insertEdge(lga, mia, new Flight("FT4021", 1010));  // F16
+        //graph.insertEdge(lga, mia, new Flight("FT4021", 1010));  // F16
         graph.insertEdge(lga, mia, new Flight("AM1026", 1099));  // F17
         graph.insertEdge(dfw, mia, new Flight("AM5267", 1120));  // F18
     }
@@ -180,6 +176,15 @@ public class FlightsView extends BorderPane {
         updateStatistics();
         updateControls();
 
+        List<Vertex<Airport>> vertices = (List<Vertex<Airport>>) graph.vertices();
+
+        Vertex<Airport> source = vertices.get(0);
+        Vertex<Airport> destination = vertices.get(1);
+
+        System.out.println("Início: " + source);
+        System.out.println("Fim: " + destination);
+
+        Dijkstra.calculateLowestCostPathBetweenVertices(source, destination, graph);
     }
 
     private void doLayout() {
